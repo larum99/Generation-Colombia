@@ -1,0 +1,184 @@
+
+
+
+// GUÍA DE CONTROL DE FLUJO 
+// ============================================
+// TEMAS: Comparaciones, If, While
+
+// INSTRUCCIÓN: Ejecuta cada sección por separado
+// ============================================
+
+
+//
+// 1. COMPARACIONES (El corazon de las decisiones)
+// 
+
+// Una comparación siempre devuelve true (verdadero) o false (falso)
+console.log("=== COMPARACIONES BÁSICAS ===");
+
+console.log("5 > 3:", 5 > 3); // true (5 es mayor que 3)
+console.log("5 < 3:", 5 < 3); // false (5 no es menor que 3)
+console.log("5 >= 5:", 5 >= 5); // true (5 es mayor o igual que 5)
+console.log("5 <= 3:", 5 <= 3); // false (5 no es menor o igual que 3)
+console.log("5 === 5:", 5 === 5); // true (valor y tipo son iguales)
+console.log("5 === '5':", 5 === '5'); // false (número vs texto)
+console.log("5 !== '5':", 5 !== '5'); // true (son diferentes en tipo)
+console.log("");
+
+
+// El operador módulo (%) devuelve el RESTO de una división
+console.log("OPERADOR MÓDULO (%)");
+console.log("10 % 3 =", 10 % 3);   // 1 (10 dividido 3 da 3, sobran 1)
+console.log("15 % 5 =", 15 % 5);   // 0 (15 dividido 5 da 3 exacto, sobra 0)
+console.log("7 % 4 =", 7 % 4);     // 3 (7 dividido 4 da 1, sobran 3)
+console.log("");
+
+
+
+
+// El modulo es útil para saber si un número es DIVISIBLE por otro
+let numero = 9;
+let esDivisiblePor3 = (numero % 3 === 0);
+console.log(`¿${numero} es divisible por 3?`, esDivisiblePor3);  // true
+
+numero = 10;
+let esDivisiblePor5 = (numero % 5 === 0);
+console.log(`¿${numero} es divisible por 5?`, esDivisiblePor5);  // true
+console.log("");
+
+
+// 2. IF / ELSE (Ramificación - Tomar decisiones)
+
+// EJEMPLO FÁCIL - La discoteca
+console.log(" IF - DECISIÓN SIMPLE ");
+let edad = 18;
+
+if (edad >= 18) {
+    console.log("Puedes entrar a la discoteca");
+} else {
+    console.log("Lo siento, eres menor de edad");
+}
+console.log("");
+
+// EJEMPLO MEDIO: Multiples condiciones con else if
+console.log(" IF - MÚLTIPLES CONDICIONES");
+let nota = 85;
+
+if (nota >= 90) {
+    console.log("Calificación: Excelente (A)");
+} else if (nota >= 80) {
+    console.log("Calificación: Muy bien (B)");
+} else if (nota >= 70) {
+    console.log("Calificación: Bien (C)");
+} else if (nota >= 60) {
+    console.log("Calificación: Suficiente (D)");
+} else {
+    console.log("Calificación: Necesitas mejorar (F)");
+}
+console.log("");
+
+// EJEMPLO AVANZADO: Anidar if (if dentro de if)
+console.log("IF ANIDADOS");
+
+//Aprobación de préstamo bancario
+
+
+let historialCrediticio = "bueno";   // "bueno", "regular", "malo"
+let ingresosMensuales = 2500000;     // pesos
+let montoSolicitado = 10000000;      // pesos
+
+console.log(`Historial: ${historialCrediticio}, Ingresos: $${ingresosMensuales}, Préstamo: $${montoSolicitado}`);
+
+// 1. if ¿Tiene buen historial?
+if (historialCrediticio === "bueno") {
+    console.log("Historial crediticio aprobado");
+    
+    // 2. if - ¿Sus ingresos son suficientes?
+
+    let capacidadPago = ingresosMensuales * 0.3;  // Máximo 30% de ingresos para cuota
+    let cuotaMensual = montoSolicitado * 0.05;  // Suponiendo 5% de cuota mensual
+    
+    console.log(`Capacidad de pago maxima: $${capacidadPago}`);
+    console.log(`Cuota mensual estimada: $${cuotaMensual}`);
+    
+    if (cuotaMensual <= capacidadPago) {
+        console.log("¡PRESTAMO APROBADO! Puedes pagar la cuota mensual.");
+        
+        // 3. if (anidado dentro del segundo): ¿Monto alto?
+        if (montoSolicitado >= 20000000) {
+            console.log("Por ser un préstamo alto, te regalamos una tarjeta de crédito adicional.");
+        } else {
+            console.log("Se generará el contrato en 24 horas.");
+        }
+        
+    } else {
+        console.log("PRESTAMO RECHAZADO - La cuota excede tu capacidad de pago.");
+    }
+    
+} else if (historialCrediticio === "regular") {
+    console.log("Historial regular. Necesitas un codeudor para el préstamo.");
+} else {
+    console.log("PRÉSTAMO RECHAZADO: Historial crediticio malo.");
+}
+
+// Prueba cambiando: historialCrediticio = "bueno", ingresosMensuales = 1200000
+// Prueba cambiando: historialCrediticio = "regular"
+//Intenten cambiar los datos 
+
+
+// 3. WHILE (Bucle - Repetir mientras se cumpla una condicion)
+// Contador del 1 al 5
+
+console.log(" WHILE - CONTADOR BASICO");
+let contador = 1;
+
+while (contador <= 5) {
+    console.log(`Vuelta numero ${contador}`);
+    contador = contador + 1;  // ¡OJO, Si esta linea falta, es bucle infinito y para terminar el programa deben terminar la terminal
+}
+console.log("El bucle termino porque contador llego a 6");
+console.log("");
+
+// EJEMPLO MEDIO - Cuenta regresiva
+console.log(" WHILE - CUENTA REGRESIVA ");
+let cuenta = 10;
+
+while (cuenta > 0) {
+    console.log(`Lanzamiento en ${cuenta}...`);
+    cuenta = cuenta - 1;
+}
+console.log("¡DESPEGUE!");
+console.log("");
+
+/*
+PREGUNTAS SOBRE COMPARACIONES:
+
+¿Qué devuelve 10 > 5? → true
+
+¿Qué devuelve 10 % 3? → 1
+
+¿Cómo se pregunta si un número es divisible por 4? → numero % 4 === 0
+
+¿Cuál es la diferencia entre = y ===? → = asigna, === compara
+
+PREGUNTAS SOBRE IF:
+
+¿Qué pasa si no pongo else? 
+El programa sigue sin hacer nada si la condición es false
+
+¿Para qué sirve else if? 
+Para evaluar múltiples condiciones en orden
+
+PREGUNTAS SOBRE WHILE:
+¿Qué es un bucle infinito y cómo se evita?
+Cuando la condición nunca se vuelve false. Se evita actualizando la variable dentro del bucle
+
+¿Qué pasa si la condición empieza siendo false? 
+El bucle nunca se ejecuta
+
+
+Tenganlo en cuenta para las proxima sesion
+
+¿Cuándo usar while y cuándo for? → While cuando NO sabes cuántas vueltas. For cuando SABES cuántas (ej: recorrer arreglo)
+¿Qué control de flujo usarías para un menú que pide opción hasta que sea válida? → While
+*/
