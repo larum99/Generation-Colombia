@@ -1,0 +1,338 @@
+
+/*
+
+Una variable es una ubicación de almacenamiento con nombre para datos.
+ En JavaScript, las variables se pueden declarar usando let, const o var.
+Los datos pueden almacenarse en distintos tipos, como strings o numbers; a estos se les llama primitivos.
+ Los primitivos más comunes en JavaScript incluyen: string, number, boolean, null, undefined, symbol y bigint.
+*/
+
+let nombre = "Pepe";
+
+console.log(nombre);
+
+let edad = 20;
+
+console.log(edad);
+
+
+
+// Operadores aritmeticos  
+
+let suma = 10 + 5;          
+let resta = 10 - 5;         
+let multiplicacion = 10 * 5; 
+let division = 10 / 5;      
+let residuo = 10 % 3;       // 1 - Módulo (residuo de la división)
+let potencia = 2 ** 3;      // 8 - Potencia (2 elevado a 3)
+
+console.log("el resultado de la division es: " + division);
+
+//Ejemplo 1 
+
+let precioPan  = 500;
+let precioLeche = 4000;
+
+let totalCompra = precioPan + precioLeche;
+
+console.log("El total de la compra es: ", totalCompra);
+
+//La cuenta del restaurante con propina
+
+console.log();
+console.log("La cuenta del restaurante con propina");
+console.log();
+let costoComida = 45000;              
+let porcentajePropina = 10;    
+
+let valorPropina = (costoComida * porcentajePropina) / 100;  
+let totalConPropina = costoComida + valorPropina;               
+
+console.log("Costo de la comida: $" + costoComida);    // Muestro costo
+console.log("Propina (10%): $" + valorPropina);        // Muestro propina
+console.log("Total a pagar: $" + totalConPropina);     // Muestro total
+
+
+
+/*
+
+1. Tipos de Datos Primitivos
+Number: Valores numéricos enteros y decimales (ej. 42 o 3.14).
+BigInt: Enteros de longitud arbitraria, ideales para operaciones matemáticas gigantescas (ej. 12345678901234567890n).
+Boolean: Representa estados lógicos: true (verdadero) o false (falso).
+Undefined: Una variable declarada a la que aún no se le ha asignado un valor.
+Null: Ausencia intencional de cualquier valor.
+Symbol: Un valor único e inmutable utilizado frecuentemente como identificador de propiedades de objetos.
+
+
+String: Cadenas de texto. Van entre comillas simples o dobles (ej. 'Hola').Pueden ser comillas simples 'Hola', comillas dobles "Hola", o comillas invertidas `Hola` (backticks). Las primeras dos son iguales. Los backticks permiten poner variables dentro sin tener que cortar el texto, usando ${variable}. Esto se llama interpolación.
+*/
+
+let nombreEstudiante = "Juanito";
+let apellidoEstudiante = "Bueno";
+let ciudad = "Medellin";
+
+console.log();
+let mensajeBackTicks = `Bienvenido ${nombreEstudiante} ${apellidoEstudiante} desde ${ciudad} usando interpolación con backticks`;
+console.log(mensajeBackTicks);
+console.log();
+let mensajeConcatenado ='Bienvenido ' + nombreEstudiante + ' '+ apellidoEstudiante + ' desde ' + ciudad + 'usando concatenacion';
+console.log(mensajeConcatenado);
+
+
+// Generador de Correo electronico 
+
+console.log();
+console.log("Generador de Correo electronico");
+console.log();
+let primerNombre = "Ana";               
+let primerApellido = "Pérez";           
+let dominio = "empresa.com";            
+
+
+let primeraLetra = primerNombre[0];     // Tomo el primer carácter (índice 0)
+
+let correo = primeraLetra + primerApellido + "@" + dominio;  // Armo el correo
+let correoMinuscula = correo.toLowerCase();                  // Todo a minúsculas
+
+console.log("Nombre:", primerNombre, primerApellido);   // Muestro nombre
+console.log("Correo generado:", correoMinuscula); 
+
+
+// MÉTODOS ÚTILES PARA STRINGS
+
+
+let texto = "  Hola Mundo  ";           // String con espacios al inicio y final
+
+console.log("Original: '" + texto + "'");                     // Muestro original
+console.log("Sin espacios: '" + texto.trim() + "'");          // Elimina espacios
+console.log("Mayúsculas: " + texto.toUpperCase());            // Convierte a MAYÚSCULAS
+console.log("Minúsculas: " + texto.toLowerCase());            // Convierte a minúsculas
+console.log("¿Contiene 'Mundo'? " + texto.includes("Mundo")); // Busca texto dentro
+console.log("Longitud: " + texto.length);                     // Cuenta caracteres
+
+
+//BOOLEAN  
+
+let edad = 15;
+let puedeEntrar = edad >= 18;
+
+console.log("Edad:", edad);
+console.log("¿Puede entrar?", puedeEntrar);
+
+//Operadores de comparacion 
+
+/*
+ Mayor que:  > 
+ Menor que: <
+ Menor o igual que: <= 
+ Mayor o igual que: >= 
+ igualdad: ===
+ diferente: !==
+*/
+
+console.log("5 > 3:", 5 > 3);     // true  (5 es mayor que 3)
+console.log("5 < 3:", 5 < 3);     // false (5 no es menor que 3)
+console.log("5 >= 5:", 5 >= 5);   // true  (5 es mayor o igual que 5)
+console.log("5 === 5:", 5 === 5); // true  (valor y tipo son iguales)
+console.log("5 === '5':", 5 === '5'); // false (número vs texto)
+
+//Sistema de descuento por membresía
+
+
+console.log();
+console.log('Sistema de descuento por membresía');
+console.log();
+
+let esMiembroPremium = true;            // ¿Es miembro premium?
+let totalCompra = 150000;               // Total de la compra en pesos
+
+let descuentoPremium = esMiembroPremium;               // true (es miembro)
+let descuentoPorMonto = totalCompra > 100000;          // true (compró más de 100mil)
+
+console.log("¿Es miembro premium?", esMiembroPremium);
+console.log("¿Compra mayor a 100mil?", descuentoPorMonto);
+
+// OR (||) - Basta con que una condición sea true
+let aplicaAlgunDescuento = descuentoPremium || descuentoPorMonto;
+console.log("¿Aplica algún descuento?", aplicaAlgunDescuento);
+
+// OPERADORES LÓGICOS: && (Y), || (O), ! (NO)
+
+console.log("true && true =", true && true);    // true (ambos true)
+console.log("true && false =", true && false);  // false (uno es false)
+console.log("true || false =", true || false);  // true (al menos uno true)
+console.log("false || false =", false || false); // false (ambos false)
+console.log("!true =", !true);                  // false (invierte)
+console.log("!false =", !false);                // true (invierte)
+
+
+
+// Descuento especial del 30%: necesita ambas condiciones
+let descuentoEspecial = esMiembroPremium && (totalCompra > 100000);
+console.log("¿Aplica descuento especial?", descuentoEspecial);
+
+// Usando NOT (!) para preguntar lo contrario
+let noAplicaDescuento = !descuentoEspecial;
+console.log("¿No aplica el descuento especial?", noAplicaDescuento);
+
+
+
+/* 
+Los datos también pueden organizarse en estructuras, como arreglos(Arrays) u objetos; a estas se les llama estructuras de datos.
+ Los arreglos y los objetos se utilizan para agrupar y gestionar colecciones de datos en JavaScript.
+
+ 2. Tipos de Datos Complejos 
+Array: Un tipo especial de objeto utilizado para almacenar listas ordenadas de elementos bajo una sola variable (ej. [1, 2, 3]).
+*/
+
+let listaDeCompras = ["pan", "leche","chocolate","huevos", "queso"];
+
+console.log("Lista de compras", listaDeCompras);
+console.log();
+console.log("Primer elemento (indice 0): ", listaDeCompras[0]);
+console.log("Segundo elemento (índice 1): ", listaDeCompras[1]);
+console.log(`Tercer elemento: ${listaDeCompras[2]}`);
+
+console.log("Cantidad de items:", listaDeCompras.length);  
+
+let ultimoIndice = listaDeCompras.length - 1;                  
+console.log("Último elemento:", listaDeCompras[ultimoIndice]);
+
+//Métodos para modificar arreglos
+
+
+// push() - Agrega un elemento al FINAL
+
+listaDeCompras.push("café");
+console.log("Después de push('café'):", listaDeCompras);
+console.log("Nueva longitud:", listaDeCompras.length);  
+
+// pop() - Elimina el ÚLTIMO elemento y lo devuelve
+
+let itemEliminado = listaDeCompras.pop();
+console.log("Eliminé:", itemEliminado);                 
+console.log("Después de pop():", listaDeCompras);       
+
+// unshift() - Agrega un elemento al PRINCIPIO
+listaDeCompras.unshift("jugo");
+console.log("Después de unshift('jugo'):", listaDeCompras);
+
+// shift() - Elimina el PRIMER elemento
+let primerItem = listaDeCompras.shift();
+console.log("Eliminé el primero:", primerItem);         
+console.log("Después de shift():", listaDeCompras);      
+
+
+
+//Lista de tareas con estado
+
+// Arreglo que contiene objetos (cada tarea tiene nombre y estado)
+let tareas = [
+  { nombre: "Estudiar JavaScript", completada: false },  // Tarea 0: pendiente
+  { nombre: "Hacer ejercicio", completada: true },       // Tarea 1: completada
+  { nombre: "Comprar comida", completada: false },       // Tarea 2: pendiente
+  { nombre: "Llamar a mamá", completada: false }         // Tarea 3: pendiente
+];
+
+console.log("=== MIS TAREAS ===");
+console.log("Tarea 1:", tareas[0].nombre, "- Completada:", tareas[0].completada);
+console.log("Tarea 2:", tareas[1].nombre, "- Completada:", tareas[1].completada);
+console.log("Tarea 3:", tareas[2].nombre, "- Completada:", tareas[2].completada);
+console.log("Tarea 4:", tareas[3].nombre, "- Completada:", tareas[3].completada);
+
+// Agregar una tarea nueva al arreglo
+let nuevaTarea = { nombre: "Leer un libro", completada: false };
+tareas.push(nuevaTarea);
+console.log("Nueva tarea agregada:", tareas[4].nombre);
+
+// Marcar la primera tarea como completada
+tareas[0].completada = true;
+console.log("Actualicé tarea 1:", tareas[0]);
+
+console.log("Total de tareas:", tareas.length); 
+
+
+/*
+Objectos: Un object  es una estructura de datos que guarda información en pares de clave: valor (key: value). A diferencia de los arreglos que usan índices numéricos, los objetos usan nombres (claves) para acceder a los valores. Las claves son strings. Los valores pueden ser cualquier tipo de dato: number, string, boolean, array, otro objeto. Los objetos se definen con llaves {}. Para acceder a un valor, se puede usar objeto.clave (notación de punto) o objeto["clave"] (notación de corchetes)
+*/
+
+//Perfil de usuario
+
+let usuario = {
+  nombre: "Ana",      // clave: "nombre", valor: "Ana"
+  edad: 25,           // clave: "edad", valor: 25
+  ciudad: "Bogotá"    // clave: "ciudad", valor: "Bogotá"
+};
+
+console.log("Objeto completo:", usuario);
+
+// Notación de punto 
+console.log("Nombre (notación punto):", usuario.nombre);   // Ana
+console.log("Edad (notación punto):", usuario.edad);       // 25
+
+// Notación de corchetes
+console.log("Ciudad (notación corchetes):", usuario["ciudad"]);  // Bogotá
+
+// Modificar una propiedad existente
+usuario.edad = 26;      // Cambio la edad de 25 a 26
+console.log("Edad actualizada:", usuario.edad);
+
+// Agregar una nueva propiedad
+usuario.profesion = "Programadora";  // Creo la clave "profesion" con su valor
+console.log("Después de agregar profesión:", usuario);
+
+// Eliminar una propiedad 
+delete usuario.ciudad;   // Borro la clave "ciudad" y su valor
+console.log("Después de eliminar ciudad:", usuario);
+
+//Ejemplo objeto 2
+
+let producto = {
+  nombre: "Laptop Gamer",                    // String: nombre del producto
+  precio: 2500000,                           // Number: precio en pesos
+  disponible: true,                          // Boolean: true = hay stock
+  etiquetas: ["electrónica", "computadores", "oferta"],  // Array: lista de etiquetas
+  especificaciones: {                        // Objeto anidado: características técnicas
+    marca: "Lenovo",
+    ram: "16GB",
+    almacenamiento: "512GB SSD"
+  }
+};
+
+console.log("=== PRODUCTO ===");
+console.log("Nombre:", producto.nombre);                     // String
+console.log("Precio: $" + producto.precio);                  // Number
+console.log("Disponible:", producto.disponible);             // Boolean
+console.log("Primera etiqueta:", producto.etiquetas[0]);     // Accedo al array dentro del objeto
+console.log("Marca:", producto.especificaciones.marca);      // Accedo al objeto dentro del objeto
+console.log("RAM:", producto.especificaciones.ram);          // Otro valor del objeto anidado
+
+
+
+/*
+
+RESUMEN DE TIPOS DE DATOS:
+
+NUMBER (número)
+  → let precio = 1500;
+  → Operaciones: + - * / % **
+
+ STRING (texto)
+  → let nombre = "Ana";
+  → Métodos: .toLowerCase(), .toUpperCase(), .trim(), .length
+
+  
+BOOLEAN (verdadero/falso)
+  → let puedeEntrar = edad >= 18;
+  → Operadores: && (Y), || (O), ! (NO)
+
+ARRAY (lista ordenada)
+  → let lista = ["pan", "leche"];
+  → Acceso: lista[0] (empieza en 0)
+  → Métodos: .push(), .pop(), .length
+
+OBJECT (pares clave-valor)
+  → let usuario = {nombre: "Ana", edad: 25};
+  → Acceso: usuario.nombre
+*/
