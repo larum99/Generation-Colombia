@@ -66,7 +66,7 @@ console.log(calcularPromedio(notas));
  */
 // 5 Filtrar usuario por edad
 
-const usuarios = [
+/* const usuarios = [
     { nombre: 'Juan', edad: 25 },
     { nombre: 'María', edad: 30 },
     { nombre: 'Pedro', edad: 20 }
@@ -84,11 +84,27 @@ function filtrarUsuarios(usuarios, edadMinima) {
     }
 }
 
-filtrarUsuarios(usuarios, edadMinima);
+filtrarUsuarios(usuarios, edadMinima); */
 
 // 6 contador de palabras
 
 function contarPalabras(frase) {
     let palabras = frase.trim().split(/\s+/);
-    return palabras.length;
+    return `La cantidad de palabras en la frase es: ${palabras.length}`;
 }
+
+console.log(contarPalabras("Laura Barona Saavedra"));
+
+// 7 Simulador de ATM
+const prompt =  require('prompt-sync')();
+
+let saldo = parseFloat(prompt('Ingrese el saldo actual: '));
+let monto = parseFloat(prompt('Ingrese el monto a retirar: '));
+
+function retirarDinero(saldo, monto) {
+    if (saldo > monto) {
+        return `$Fondos insuficientes.`;
+    }
+}
+
+console.log(retirarDinero());

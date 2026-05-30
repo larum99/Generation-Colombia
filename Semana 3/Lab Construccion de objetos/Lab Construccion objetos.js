@@ -47,7 +47,7 @@ console.log(lista.mostrarLista());
 // Reproductor de música
 
 function ReproductorDeMusica() {
-    this.estado = 'reproduciendo'
+    this.estado = 'detenido'
 
     this.play = function() {
         if (this.estado === 'detenido' || this.estado === 'pausado') {
@@ -86,3 +86,61 @@ console.log(reproductor3.detener());
 
 // Carrito de compras con descuentos
 
+function Carrito() {
+    this.productos = [];
+    this.total = 0;
+
+    this.agregarProducto = function(producto, precio) {
+        this.productos.push(producto);
+        this.total += precio;
+        return `Producto ${producto} agregado a la lista.`
+    };
+
+    this.calcularDescuento =  function() {
+        let finalTotal = this.total;
+        if (this.total > 100 ) {
+            finalTotal = this.total - (this.total * 0.1);
+            return `Se aplicó 10% de desceunto. El total es: ${finalTotal}`;
+        } else if (this.total > 50 && this.total <= 100) {
+            finalTotal = this.total - (this.total * 0.05);
+            return `Se aplicó 5% de descuento. El total es: ${finalTotal}`;
+        } else {
+            return `No se aplica descuento ${this.total}`;
+        }
+    }
+}
+
+console.log(`\nCarrito de Compras \n`)
+
+const carrito1 = new Carrito();
+const total = 50;
+console.log(carrito1.agregarProducto('Papitas', total));
+console.log(carrito1.total);
+console.log(carrito1.calcularDescuento(total));
+
+console.log(`\n`)
+
+const carrito2 = new Carrito();
+const total2 = 100;
+console.log(carrito2.agregarProducto('Manzanas', total2));
+console.log(carrito2.total);
+console.log(carrito2.calcularDescuento(total2))
+
+console.log(`\n`)
+
+const carrito3 = new Carrito();
+const total3 = 200;
+console.log(carrito3.agregarProducto('Pera', total3));
+console.log(carrito3.total);
+console.log(carrito3.calcularDescuento(total3));
+
+console.log(`\n`)
+
+const carrito4 = new Carrito();
+carrito4.agregarProducto("Papitas", 30);
+carrito4.agregarProducto("Gaseosa", 40);
+carrito4.agregarProducto("Chocolate", 50);
+
+console.log(carrito4.productos);
+console.log(carrito4.total);
+console.log(carrito4.calcularDescuento());
