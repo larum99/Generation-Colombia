@@ -1,4 +1,4 @@
-/* // 1 Calculadora de propinas
+// 1 Calculadora de propinas
 
 function calcularPropina(total, porcentaje) {
     return total * (porcentaje / 100);
@@ -63,10 +63,10 @@ function calcularPromedio(notas) {
 }
 
 console.log(calcularPromedio(notas));
- */
+
 // 5 Filtrar usuario por edad
 
-/* const usuarios = [
+const usuarios = [
     { nombre: 'Juan', edad: 25 },
     { nombre: 'María', edad: 30 },
     { nombre: 'Pedro', edad: 20 }
@@ -84,7 +84,7 @@ function filtrarUsuarios(usuarios, edadMinima) {
     }
 }
 
-filtrarUsuarios(usuarios, edadMinima); */
+filtrarUsuarios(usuarios, edadMinima);
 
 // 6 contador de palabras
 
@@ -103,8 +103,27 @@ let monto = parseFloat(prompt('Ingrese el monto a retirar: '));
 
 function retirarDinero(saldo, monto) {
     if (saldo > monto) {
-        return `$Fondos insuficientes.`;
+        return `Nuevo saldo: ${saldo - monto}`;
+    } else {
+        return 'Saldos insuficientes.';
     }
 }
 
-console.log(retirarDinero());
+console.log(retirarDinero(saldo, monto));
+
+// 8 Cambio de moneda
+
+const prompt = require('prompt-sync')();
+
+let monto = parseFloat(prompt('Ingrese el monto en COP que desea cambiar: '));
+let monedaDestino = prompt('Ingrese la moneda a la que desea convertir (USD o EUR): ');
+
+function convertirMoneda(monto, monedaDestino) {
+    if (monedaDestino === 'USD'.toLowerCase()) {
+        return `El monto convertido es ${monto * 0.00028}`;
+    } else {
+        return `El monto convertido es ${monto * 0.00024}`;
+    }
+}
+
+console.log(convertirMoneda(monto, monedaDestino));
