@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do</title>
+    <link rel="stylesheet" href="styles.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body>
+    <div class="contenedor">
+
+        <h1>To Do</h1>
+
+        <div class="formulario">
+
+            <input
+                type="text"
+                id="textoTarea"
+                placeholder="Escribe una tarea"
+            >
+
+            <select id="categoria">
+                <option value="trabajo">Trabajo</option>
+                <option value="estudio">Estudio</option>
+                <option value="personal">Personal</option>
+                <option value="urgente">Urgente</option>
+                <option value="otra">Otra...</option>
+            </select>
+
+            <input
+                type="text"
+                id="otraCategoria"
+                placeholder="Escribe tu categoría"
+            >
+
+            <but id="botonAgregar">
+                Agregar tarea
+            </but>
+
+            <span id="mensajeError"></span>
+        </div>
+        <div class="contador">
+            <span id="completadas">0</span>
+            de
+            <span id="total">0</span>
+            tareas completadas
+        </div>
+
+        <ul id="listaTareas"></ul>
+
+        <script src="script.js"></script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+body {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.contenedor {
+    width: 700px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input,
+select,
+button {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#otraCategoria {
+    display: none;
+}
+
+#mensajeError {
+    color: red;
+    font-size: 14px;
+}
+
+.contador {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+#listaTareas {
+    list-style: none;
+    padding: 0;
+}
+
+.tarea {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px;
+    margin-bottom: 10px;
+
+    border: 1px solid #ccc;
+    border-radius: 10px;
+
+    background-color: white;
+}
+
+.botones {
+    display: flex;
+    gap: 8px;
+}
+
+.botones button {
+    cursor: pointer;
+}
+
+.completada {
+    text-decoration: line-through;
+    background-color: #d4edda;
+}
+
+.urgente {
+    border: 2px solid red;
+    background-color: #ffe5e5;
+}
