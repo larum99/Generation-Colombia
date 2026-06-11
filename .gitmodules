@@ -1,0 +1,6 @@
+[submodule "laura-barona-saavedra-portfolio"]
+	path = laura-barona-saavedra-portfolio
+	url = git@github.com:larum99/laura-barona-saavedra-portfolio.git
+[submodule "Odonto-luanm-frontend"]
+	path = Odonto-luanm-frontend
+	url = git@github.com:RamiroDiaz10/Odonto-luanm-frontend.git
