@@ -1,6 +1,7 @@
 const botonesAgregar = document.querySelectorAll('.btn-agregar');
 const listaCarrito = document.querySelector('#lista-carrito');
 const mensajeVacio = document.querySelector('#msg-vacio');
+const badge = document.querySelector('#badge');
 
 botonesAgregar.forEach((boton) => {
 
@@ -40,4 +41,13 @@ function agregarAlCarrito(nombre, precio) {
 
     listaCarrito.appendChild(li);
 
+    cantidadItems++;
+    updateBadge();
+
+}
+
+let cantidadItems = 0;
+
+function updateBadge() {
+    badge.textContent = cantidadItems;
 }
