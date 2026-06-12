@@ -1,0 +1,65 @@
+:root {
+    --primary: #262FEB;
+    --secondary: #06D4B1;
+    --accent: #A85BF5;
+    --light: #F8FAFC;
+    --dark: #1E293B;
+    --gray: #64748B;
+}
+
+body {
+    background-color: var(--light);
+    font-family: "Segoe UI", sans-serif;
+}
+
+.profile-card {
+    width: 380px;
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.profile-card:hover {
+    transform: translateY(-8px);
+}
+
+.card-header-custom {
+    height: 120px;
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary),
+        var(--accent)
+    );
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid white;
+    margin-top: -60px;
+}
+
+.role {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.description {
+    color: var(--gray);
+}
+
+.social-icons a {
+    color: var(--accent);
+    font-size: 1.4rem;
+    margin: 0 10px;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    color: var(--secondary);
+}
