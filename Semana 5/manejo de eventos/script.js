@@ -3,6 +3,7 @@ const listaCarrito = document.querySelector('#lista-carrito');
 const mensajeVacio = document.querySelector('#msg-vacio');
 const badge = document.querySelector('#badge');
 const total = document.querySelector('#total');
+const btnVaciar = document.querySelector('#btn-vaciar');
 
 let cantidadItems = 0;
 let totalAcumulado = 0;
@@ -19,6 +20,8 @@ botonesAgregar.forEach((boton) => {
     });
 
 });
+
+btnVaciar.addEventListener('click', vaciarCarrito);
 
 function agregarAlCarrito(nombre, precio) {
 
@@ -81,7 +84,24 @@ function eliminarItem(li, precio) {
 function updateTotal() {
     total.textContent =
         '$' +
-        totalAcumulado.toLocaleString('es-CR', {
+        totalAcumulado.toLocaleString('es-CO', {
             minimumFractionDigits: 2
         });
+}
+
+function vaciarCarrito() {
+
+    listaCarrito
+        .querySelectorAll('li:not(#msg-vacio)')
+        .forEach((li) => {
+            li.remove();
+        });
+
+    totalAcumulado = 0;
+    cantidadItems = 0;
+
+    updateTotal();
+    updateBadge();
+
+    mensajeVacio.style.display = 'block';
 }
