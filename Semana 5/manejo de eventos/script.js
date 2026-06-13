@@ -3,6 +3,8 @@ const listaCarrito = document.querySelector('#lista-carrito');
 const mensajeVacio = document.querySelector('#msg-vacio');
 const badge = document.querySelector('#badge');
 
+let cantidadItems = 0;
+
 botonesAgregar.forEach((boton) => {
 
     boton.addEventListener('click', () => {
@@ -41,13 +43,31 @@ function agregarAlCarrito(nombre, precio) {
 
     listaCarrito.appendChild(li);
 
+    const botonEliminar = li.querySelector('.btn-eliminar');
+
+    botonEliminar.addEventListener('click', () => {
+        eliminarItem(li);
+    });
+
     cantidadItems++;
     updateBadge();
 
 }
 
-let cantidadItems = 0;
-
 function updateBadge() {
     badge.textContent = cantidadItems;
+}
+
+function eliminarItem(li) {
+
+    li.remove();
+
+    cantidadItems--;
+
+    updateBadge();
+
+    if (cantidadItems === 0) {
+        mensajeVacio.style.display = 'block';
+    }
+
 }
