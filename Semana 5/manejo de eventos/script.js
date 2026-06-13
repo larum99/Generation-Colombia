@@ -2,15 +2,17 @@ const botonesAgregar = document.querySelectorAll('.btn-agregar');
 const listaCarrito = document.querySelector('#lista-carrito');
 const mensajeVacio = document.querySelector('#msg-vacio');
 const badge = document.querySelector('#badge');
+const total = document.querySelector('#total');
 
 let cantidadItems = 0;
+let totalAcumulado = 0;
 
 botonesAgregar.forEach((boton) => {
 
     boton.addEventListener('click', () => {
 
         const nombre = boton.dataset.nombre;
-        const precio = boton.dataset.precio;
+        const precio = Number(boton.dataset.precio);
 
         agregarAlCarrito(nombre, precio);
 
@@ -46,11 +48,14 @@ function agregarAlCarrito(nombre, precio) {
     const botonEliminar = li.querySelector('.btn-eliminar');
 
     botonEliminar.addEventListener('click', () => {
-        eliminarItem(li);
+        eliminarItem(li, precio);
     });
 
     cantidadItems++;
     updateBadge();
+
+    totalAcumulado += precio;
+    updateTotal();
 
 }
 
@@ -58,16 +63,25 @@ function updateBadge() {
     badge.textContent = cantidadItems;
 }
 
-function eliminarItem(li) {
+function eliminarItem(li, precio) {
 
     li.remove();
 
     cantidadItems--;
-
     updateBadge();
+
+    totalAcumulado -= precio;
+    updateTotal();
 
     if (cantidadItems === 0) {
         mensajeVacio.style.display = 'block';
     }
+}
 
+function updateTotal() {
+    total.textContent =
+        '$' +
+        totalAcumulado.toLocaleString('es-CR', {
+            minimumFractionDigits: 2
+        });
 }
