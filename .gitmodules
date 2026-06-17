@@ -4,6 +4,3 @@
 [submodule "Odonto-luanm-frontend"]
 	path = Odonto-luanm-frontend
 	url = git@github.com:RamiroDiaz10/Odonto-luanm-frontend.git
-[submodule "oral-luanm-frontend"]
-	path = oral-luanm-frontend
-	url = git@github.com:larum99/oral-luanm-frontend.git
