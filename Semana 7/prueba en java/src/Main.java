@@ -1,6 +1,6 @@
+import java.util.Scanner;
 
-
-public class Principal {
+public class Main {
     public static void main(String[] args) {
         // FRAGMENTO 1 - Promoción y tipos pequeños
         byte a = 10;
