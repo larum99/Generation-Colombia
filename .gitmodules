@@ -4,9 +4,6 @@
 [submodule "Odonto-luanm-frontend"]
 	path = Odonto-luanm-frontend
 	url = git@github.com:RamiroDiaz10/Odonto-luanm-frontend.git
-[submodule "Hackathon_tienda"]
-	path = Hackathon_tienda
-	url = git@github.com:Luis2612/Hackathon_tienda.git
 [submodule "Practica con API/Web-storage-API"]
 	path = Practica con API/Web-storage-API
 	url = git@github.com:larum99/Web-storage-API.git
