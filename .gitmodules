@@ -13,3 +13,6 @@
 [submodule "Oral-LUANM-frontend"]
 	path = Oral-LUANM-frontend
 	url = git@github.com:larum99/Oral-LUANM-frontend.git
+[submodule "Semana 8/Sistema Cuentas Bancarias"]
+	path = Semana 8/Sistema Cuentas Bancarias
+	url = git@github.com:larum99/sistema-cuentas-bancarias.git
