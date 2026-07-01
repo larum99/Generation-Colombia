@@ -10,3 +10,6 @@
 [submodule "Practica con API/Web-storage-API"]
 	path = Practica con API/Web-storage-API
 	url = git@github.com:larum99/Web-storage-API.git
+[submodule "Oral-LUANM-frontend"]
+	path = Oral-LUANM-frontend
+	url = git@github.com:larum99/Oral-LUANM-frontend.git
