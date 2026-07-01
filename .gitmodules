@@ -13,3 +13,6 @@
 [submodule "Semana 8/Sistema Cuentas Bancarias"]
 	path = Semana 8/Sistema Cuentas Bancarias
 	url = git@github.com:larum99/sistema-cuentas-bancarias.git
+[submodule "Semana 6/Hackathon_tienda"]
+	path = Semana 6/Hackathon_tienda
+	url = git@github.com:Luis2612/Hackathon_tienda.git
