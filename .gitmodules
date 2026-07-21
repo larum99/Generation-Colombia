@@ -16,3 +16,6 @@
 [submodule "Semana 6/Hackathon_tienda"]
 	path = Semana 6/Hackathon_tienda
 	url = git@github.com:Luis2612/Hackathon_tienda.git
+[submodule "Semana 11/agenda-telefonica"]
+	path = Semana 11/agenda-telefonica
+	url = https://github.com/difcTechnology/agenda-telefonica

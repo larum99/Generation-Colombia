@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Bootcamp Generation.iml" filepath="$PROJECT_DIR$/.idea/Bootcamp Generation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Semana 8/MetodosParametros/MetodosParametros.iml" filepath="$PROJECT_DIR$/Semana 8/MetodosParametros/MetodosParametros.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Semana 8/OOP/OOP.iml" filepath="$PROJECT_DIR$/Semana 8/OOP/OOP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Semana 8/Sistema Cuentas Bancarias/Sistema Cuentas Bancarias.iml" filepath="$PROJECT_DIR$/Semana 8/Sistema Cuentas Bancarias/Sistema Cuentas Bancarias.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Semana 7/debug/debug.iml" filepath="$PROJECT_DIR$/Semana 7/debug/debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Semana 7/debug-example/debug-example.iml" filepath="$PROJECT_DIR$/Semana 7/debug-example/debug-example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Semana 7/example/example.iml" filepath="$PROJECT_DIR$/Semana 7/example/example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Semana 7/katas/katas.iml" filepath="$PROJECT_DIR$/Semana 7/katas/katas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Semana 7/prueba en java/prueba en java.iml" filepath="$PROJECT_DIR$/Semana 7/prueba en java/prueba en java.iml" />
+    </modules>
+  </component>
+</project>
