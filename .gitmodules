@@ -1,9 +1,3 @@
-[submodule "laura-barona-saavedra-portfolio"]
-	path = laura-barona-saavedra-portfolio
-	url = git@github.com:larum99/laura-barona-saavedra-portfolio.git
-[submodule "Odonto-luanm-frontend"]
-	path = Odonto-luanm-frontend
-	url = git@github.com:RamiroDiaz10/Odonto-luanm-frontend.git
 [submodule "Practica con API/Web-storage-API"]
 	path = Practica con API/Web-storage-API
 	url = git@github.com:larum99/Web-storage-API.git
@@ -18,4 +12,4 @@
 	url = git@github.com:Luis2612/Hackathon_tienda.git
 [submodule "Semana 11/agenda-telefonica"]
 	path = Semana 11/agenda-telefonica
-	url = https://github.com/difcTechnology/agenda-telefonica
+	url = git@github.com:difcTechnology/agenda-telefonica.git
