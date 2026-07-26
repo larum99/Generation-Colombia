@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../Odonto-luanm-frontend" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../Oral-LUANM-frontend" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../Practica con API/Web-storage-API" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/agenda-telefonica" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../Semana 6/Hackathon_tienda" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../Semana 8/Sistema Cuentas Bancarias" vcs="Git" />
+  </component>
+</project>
