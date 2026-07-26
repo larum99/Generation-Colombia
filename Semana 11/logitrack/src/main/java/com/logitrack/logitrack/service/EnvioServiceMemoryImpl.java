@@ -1,11 +1,15 @@
 package com.logitrack.logitrack.service;
 
 import com.logitrack.logitrack.model.Envio;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+@Service
 public class EnvioServiceMemoryImpl implements EnvioService {
     private final List<Envio> envios = new ArrayList<>();
 
@@ -17,31 +21,46 @@ public class EnvioServiceMemoryImpl implements EnvioService {
 
     @Override
     public List<Envio> findAll() {
-        return List.of();
+        return new ArrayList<>(envios);
     }
 
     @Override
     public Envio findById(String id) {
-        return null;
+        Optional<Envio> envio = envios.stream()
+                .filter(e -> e.getId().equals(id))
+                .findFirst();
+        return envio.orElse(null);
     }
 
     @Override
     public Envio save(Envio envio) {
-        return null;
+        if (envio.getId() == null || envio.getId().isEmpty()) {
+            envio.setId(UUID.randomUUID().toString());
+        }
+        envios.add(envio);
+        return envio;
     }
 
     @Override
-    public Envio update(String id, Envio envio) {
+    public Envio update(String id, Envio envioActualizado) {
+        for (int i = 0; i < envios.size(); i++) {
+            if (envios.get(i).getId().equals(id)) {
+                envioActualizado.setId(id);
+                envios.set(i, envioActualizado);
+            }
+        }
         return null;
     }
 
     @Override
     public void deleteById(String id) {
-
+        envios.removeIf(e -> e.getId().equals(id));
     }
 
     @Override
     public List<Envio> findByEstado(String estado) {
-        return List.of();
+        return envios.stream()
+                .filter(e -> e.getEstado().equalsIgnoreCase(estado))
+                .toList();
     }
 }
