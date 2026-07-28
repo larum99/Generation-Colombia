@@ -1,14 +1,51 @@
 package com.logitrack.logitrack.model;
 
-public class Envio {
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "envios")
+public class Envio {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    @Column(nullable = false)
     private String cliente;
+    @Column(nullable = false)
     private String destino;
+    @Column(name = "peso_kg", nullable = false)
     private Double pesoKg;
+    @Column(nullable = false)
     private String estado;
+    @Column(nullable = false)
+    private Double costo;
+    @OneToMany(mappedBy = "envio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+    private List<AsignacionEnvio> asignaciones = new ArrayList<>();
+
 
     public Envio() {
+    }
+
+    // Constructor Sin Id, el Id lo genera JPA automaticamente
+    public Envio(String cliente, String destino, Double pesoKg, String estado, Double costo) {
+        this.cliente = cliente;
+        this.destino = destino;
+        this.pesoKg = pesoKg;
+        this.estado = estado;
+        this.costo = costo;
+    }
+
+    // Constructor con ID por si quiero hacer alguna prueba con datos de ejemplo
+    public Envio(String id, String cliente, String destino, Double pesoKg, String estado) {
+        this.id = id;
+        this.cliente = cliente;
+        this.destino = destino;
+        this.pesoKg = pesoKg;
+        this.estado = estado;
     }
 
     public String getId() {
@@ -51,22 +88,27 @@ public class Envio {
         this.estado = estado;
     }
 
-    public Envio(String id, String cliente, String destino, Double pesoKg, String estado) {
-        this.id = id;
-        this.cliente = cliente;
-        this.destino = destino;
-        this.pesoKg = pesoKg;
-        this.estado = estado;
+    public Double getCosto() {
+        return costo;
     }
 
-    @Override
-    public String toString() {
-        return "Envio{" +
-                "id='" + id + '\'' +
-                ", cliente='" + cliente + '\'' +
-                ", destino='" + destino + '\'' +
-                ", pesoKg=" + pesoKg +
-                ", estado='" + estado + '\'' +
-                '}';
+    public void setCosto(Double costo) {
+        this.costo = costo;
+    }
+
+    public List<AsignacionEnvio> getAsignaciones() {
+        return asignaciones;
+    }
+
+    public void setAsignaciones(List<AsignacionEnvio> asignaciones) {
+        this.asignaciones = asignaciones;
+    }
+
+
+    //Helper Method -Metodo de Conveniencia
+    public void agregarConductor(Conductor conductor, LocalDate fechaAsignacion, String responsable, String observaciones){
+        AsignacionEnvio asignacion = new AsignacionEnvio(this, conductor,fechaAsignacion,responsable,observaciones);
+        this.asignaciones.add(asignacion);
+        conductor.getAsignaciones().add(asignacion);
     }
 }
