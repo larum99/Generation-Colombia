@@ -1,38 +1,40 @@
-const form = document.getElementById('weather-form');
-const cityInput = document.getElementById('city');
-const resultCard = document.getElementById('result');
-const cityNameEl = document.getElementById('city-name');
-const temperatureEl = document.getElementById('temperature');
-const windSpeedEl = document.getElementById('wind-speed');
-const windDirectionEl = document.getElementById('wind-direction');
-const messageEl = document.getElementById('message');
+const form = typeof document !== 'undefined' ? document.getElementById('weather-form') : null;
+const cityInput = typeof document !== 'undefined' ? document.getElementById('city') : null;
+const resultCard = typeof document !== 'undefined' ? document.getElementById('result') : null;
+const cityNameEl = typeof document !== 'undefined' ? document.getElementById('city-name') : null;
+const temperatureEl = typeof document !== 'undefined' ? document.getElementById('temperature') : null;
+const windSpeedEl = typeof document !== 'undefined' ? document.getElementById('wind-speed') : null;
+const windDirectionEl = typeof document !== 'undefined' ? document.getElementById('wind-direction') : null;
+const messageEl = typeof document !== 'undefined' ? document.getElementById('message') : null;
 
-form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const city = cityInput.value.trim();
+if (form) {
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const city = cityInput.value.trim();
 
-    if (!city) {
-        showMessage('Por favor ingresa una ciudad.', true);
-        return;
-    }
+        if (!city) {
+            showMessage('Por favor ingresa una ciudad.', true);
+            return;
+        }
 
-    showMessage('Buscando clima...', false);
-    resultCard.hidden = true;
+        showMessage('Buscando clima...', false);
+        resultCard.hidden = true;
 
-    try {
-        const coordinates = await getCoordinates(city);
-        const weather = await getWeather(coordinates.latitude, coordinates.longitude);
+        try {
+            const coordinates = await getCoordinates(city);
+            const weather = await getWeather(coordinates.latitude, coordinates.longitude);
 
-        cityNameEl.textContent = city;
-        temperatureEl.textContent = weather.temperature.toFixed(1);
-        windSpeedEl.textContent = weather.windSpeed.toFixed(1);
-        windDirectionEl.textContent = weather.windDirection.toFixed(0);
-        resultCard.hidden = false;
-        showMessage('', false);
-    } catch (error) {
-        showMessage(error.message, true);
-    }
-});
+            cityNameEl.textContent = city;
+            temperatureEl.textContent = weather.temperature.toFixed(1);
+            windSpeedEl.textContent = weather.windSpeed.toFixed(1);
+            windDirectionEl.textContent = weather.windDirection.toFixed(0);
+            resultCard.hidden = false;
+            showMessage('', false);
+        } catch (error) {
+            showMessage(error.message, true);
+        }
+    });
+}
 
 async function getCoordinates(city) {
     const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=es&format=json`;
@@ -74,6 +76,14 @@ async function getWeather(latitude, longitude) {
 }
 
 function showMessage(text, isError) {
+    if (!messageEl) return;
     messageEl.textContent = text;
     messageEl.className = isError ? 'error' : '';
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        getCoordinates,
+        getWeather,
+    };
 }
