@@ -13,3 +13,9 @@
 [submodule "Semana 11/agenda-telefonica"]
 	path = Semana 11/agenda-telefonica
 	url = git@github.com:difcTechnology/agenda-telefonica.git
+[submodule "Oral-LUANM-backend"]
+	path = Oral-LUANM-backend
+	url = git@github.com:larum99/Oral-LUANM-backend.git
+[submodule "clinic-backend"]
+	path = clinic-backend
+	url = git@github.com:larum99/clinic-backend.git
