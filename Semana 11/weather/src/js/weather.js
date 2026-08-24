@@ -22,8 +22,16 @@ if (form) {
         resultCard.hidden = true;
 
         try {
-            const coordinates = await getCoordinates(city);
-            const weather = await getWeather(coordinates.latitude, coordinates.longitude);
+            const coordinates = await getCoordinatesCached(city, {
+                onCacheError(err) {
+                    console.warn('Cache error in UI lookup:', err);
+                },
+            });
+            const weather = await getWeatherCached(coordinates.latitude, coordinates.longitude, {
+                onCacheError(err) {
+                    console.warn('Cache error in UI lookup:', err);
+                },
+            });
 
             cityNameEl.textContent = city;
             temperatureEl.textContent = weather.temperature.toFixed(1);
@@ -70,6 +78,47 @@ async function getCoordinates(city) {
         latitude: data.results[0].latitude,
         longitude: data.results[0].longitude,
     };
+}
+
+async function getCoordinatesCached(city, options = {}) {
+    const normalizedCity = city.trim().toLowerCase();
+    const ttlSeconds = typeof options.ttlSeconds === 'number' ? options.ttlSeconds : 3600;
+    const key = `coordinates:${normalizedCity}`;
+
+    const raw = _getStorageItem(key);
+    if (raw) {
+        try {
+            const entry = JSON.parse(raw);
+            if (entry && typeof entry.ts === 'number' && entry.data) {
+                const ageMs = Date.now() - entry.ts;
+                if (ageMs <= ttlSeconds * 1000) {
+                    return entry.data;
+                }
+            }
+        } catch (e) {
+            console.warn('Cache parse warning:', e);
+            if (options && typeof options.onCacheError === 'function') {
+                try { options.onCacheError(e); } catch (_) { }
+            }
+        }
+    }
+
+    const data = await getCoordinates(city);
+    const entry = {
+        ts: Date.now(),
+        data,
+    };
+
+    try {
+        _setStorageItem(key, JSON.stringify(entry));
+    } catch (e) {
+        console.warn('Cache set warning:', e);
+        if (options && typeof options.onCacheError === 'function') {
+            try { options.onCacheError(e); } catch (_) { }
+        }
+    }
+
+    return data;
 }
 
 /**
@@ -122,6 +171,98 @@ async function getWeather(latitude, longitude) {
     };
 }
 
+// --- Caché multiplataforma ---
+// Usamos `localStorage` cuando está disponible (navegador). En otros
+// entornos (Node, pruebas, React Native sin AsyncStorage aquí) usamos
+// un mapa en memoria como respaldo.
+const inMemoryCache = new Map();
+
+function _getStorageItem(key) {
+    if (typeof localStorage !== 'undefined' && localStorage !== null) {
+        try {
+            return localStorage.getItem(key);
+        } catch (e) {
+            console.warn('Cache read warning (localStorage):', e);
+            // si localStorage lanza, ignoramos y usamos la caché en memoria
+        }
+    }
+
+    const entry = inMemoryCache.get(key);
+    return entry === undefined ? null : JSON.stringify(entry);
+}
+
+function _setStorageItem(key, value) {
+    if (typeof localStorage !== 'undefined' && localStorage !== null) {
+        try {
+            localStorage.setItem(key, value);
+            return;
+        } catch (e) {
+            console.warn('Cache write warning (localStorage):', e);
+            // si falla, caerá al almacenamiento en memoria
+        }
+    }
+
+    try {
+        inMemoryCache.set(key, JSON.parse(value));
+    } catch (e) {
+        console.warn('Cache write fallback (inMemory) parse warning:', e);
+        // si no se puede parsear, guardamos el string directamente
+        inMemoryCache.set(key, value);
+    }
+}
+
+/**
+ * Obtiene el clima usando caché con TTL por defecto de 1 hora.
+ * Funciona en navegador (usa localStorage) y en Node (usa caché en memoria).
+ *
+ * @param {number} latitude
+ * @param {number} longitude
+ * @param {{ttlSeconds?: number}} [options]
+ * @returns {Promise<{temperature:number,windSpeed:number,windDirection:number}>}
+ */
+async function getWeatherCached(latitude, longitude, options = {}) {
+    const ttlSeconds = typeof options.ttlSeconds === 'number' ? options.ttlSeconds : 3600; // 1 hora
+    const key = `weather:${latitude}:${longitude}`;
+
+    const raw = _getStorageItem(key);
+    if (raw) {
+        try {
+            const entry = JSON.parse(raw);
+            if (entry && typeof entry.ts === 'number' && entry.data) {
+                const ageMs = Date.now() - entry.ts;
+                if (ageMs <= ttlSeconds * 1000) {
+                    return entry.data;
+                }
+            }
+        } catch (e) {
+            console.warn('Cache parse warning:', e);
+            if (options && typeof options.onCacheError === 'function') {
+                try { options.onCacheError(e); } catch (_) { /* swallow */ }
+            }
+            // si falla parsear, seguimos y obtenemos datos nuevos
+        }
+    }
+
+    const data = await getWeather(latitude, longitude);
+
+    const entry = {
+        ts: Date.now(),
+        data,
+    };
+
+    try {
+        _setStorageItem(key, JSON.stringify(entry));
+    } catch (e) {
+        console.warn('Cache set warning:', e);
+        if (options && typeof options.onCacheError === 'function') {
+            try { options.onCacheError(e); } catch (_) { /* swallow */ }
+        }
+        // no es crítico si falla el guardado en caché
+    }
+
+    return data;
+}
+
 function showMessage(text, isError = false) {
     if (!messageEl) return;
 
@@ -140,6 +281,17 @@ function showMessage(text, isError = false) {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         getCoordinates,
+        getCoordinatesCached,
         getWeather,
+        getWeatherCached,
+    };
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        getCoordinates,
+        getCoordinatesCached,
+        getWeather,
+        getWeatherCached,
     };
 }

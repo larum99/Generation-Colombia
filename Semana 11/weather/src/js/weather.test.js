@@ -1,4 +1,4 @@
-const { getCoordinates, getWeather } = require('./weather');
+const { getCoordinates, getCoordinatesCached, getWeather, getWeatherCached } = require('./weather');
 
 describe('weather.js', () => {
     beforeEach(() => {
@@ -47,6 +47,51 @@ describe('weather.js', () => {
         });
     });
 
+    describe('getCoordinatesCached', () => {
+        it('usa caché en memoria y no vuelve a llamar a fetch cuando la ciudad ya existe', async () => {
+            global.fetch.mockResolvedValueOnce({
+                ok: true,
+                json: async () => ({
+                    results: [{ latitude: 4.711, longitude: -74.0721 }],
+                }),
+            });
+
+            const first = await getCoordinatesCached('Bogotá');
+            expect(first).toEqual({ latitude: 4.711, longitude: -74.0721 });
+
+            const second = await getCoordinatesCached('bogotá');
+            expect(second).toEqual(first);
+            expect(global.fetch).toHaveBeenCalledTimes(1);
+        });
+
+        it('refresca datos cuando la caché expira', async () => {
+            const nowSpy = jest.spyOn(Date, 'now').mockImplementation(() => 1000);
+
+            global.fetch.mockResolvedValueOnce({
+                ok: true,
+                json: async () => ({
+                    results: [{ latitude: 4.712, longitude: -74.0722 }],
+                }),
+            });
+
+            const first = await getCoordinatesCached('Medellín', { ttlSeconds: 0 });
+            expect(first).toEqual({ latitude: 4.712, longitude: -74.0722 });
+
+            nowSpy.mockImplementation(() => 2000);
+            global.fetch.mockResolvedValueOnce({
+                ok: true,
+                json: async () => ({
+                    results: [{ latitude: 4.713, longitude: -74.0723 }],
+                }),
+            });
+
+            const second = await getCoordinatesCached('Medellín', { ttlSeconds: 0 });
+            expect(second).toEqual({ latitude: 4.713, longitude: -74.0723 });
+
+            nowSpy.mockRestore();
+        });
+    });
+
     describe('getWeather', () => {
         it('devuelve datos de clima para coordenadas válidas', async () => {
             global.fetch.mockResolvedValueOnce({
@@ -89,6 +134,67 @@ describe('weather.js', () => {
             global.fetch.mockRejectedValueOnce(new Error('network failure'));
 
             await expect(getWeather(4.711, -74.0721)).rejects.toThrow('network failure');
+        });
+    });
+
+    describe('getWeatherCached', () => {
+        it('usa caché en memoria y no vuelve a llamar a fetch cuando los datos siguen vigentes', async () => {
+            global.fetch.mockResolvedValueOnce({
+                ok: true,
+                json: async () => ({
+                    current_weather: {
+                        temperature: 22.3,
+                        windspeed: 15.8,
+                        winddirection: 185,
+                    },
+                }),
+            });
+
+            const first = await getWeatherCached(4.711, -74.0721);
+            expect(first).toEqual({
+                temperature: 22.3,
+                windSpeed: 15.8,
+                windDirection: 185,
+            });
+
+            const second = await getWeatherCached(4.711, -74.0721);
+            expect(second).toEqual(first);
+            expect(global.fetch).toHaveBeenCalledTimes(1);
+        });
+
+        it('refresca datos cuando la caché expira', async () => {
+            jest.spyOn(Date, 'now').mockImplementationOnce(() => 1000);
+
+            global.fetch.mockResolvedValueOnce({
+                ok: true,
+                json: async () => ({
+                    current_weather: {
+                        temperature: 10.0,
+                        windspeed: 5.0,
+                        winddirection: 90,
+                    },
+                }),
+            });
+
+            const first = await getWeatherCached(4.712, -74.0722, { ttlSeconds: 0 });
+            expect(first.temperature).toBe(10.0);
+
+            jest.spyOn(Date, 'now').mockImplementationOnce(() => 2000);
+            global.fetch.mockResolvedValueOnce({
+                ok: true,
+                json: async () => ({
+                    current_weather: {
+                        temperature: 11.0,
+                        windspeed: 6.0,
+                        winddirection: 100,
+                    },
+                }),
+            });
+
+            const second = await getWeatherCached(4.712, -74.0722, { ttlSeconds: 0 });
+            expect(second.temperature).toBe(11.0);
+
+            Date.now.mockRestore();
         });
     });
 });
